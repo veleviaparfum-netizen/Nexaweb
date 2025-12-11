@@ -93,7 +93,7 @@
       }
 
       /* ------------------
-         2. HEADER DENGAN BINGKAI PENUH & STICKY EFFECT
+         2. HEADER DESKTOP & STICKY EFFECT
          ------------------ */
       header {
         width: 100%;
@@ -135,8 +135,15 @@
         text-decoration: none;
         letter-spacing: 1px;
         text-transform: uppercase;
+        transition: font-size 0.3s; /* Untuk transisi responsif */
       }
 
+      /* Hamburger button - Sembunyikan di Desktop */
+      .menu-toggle {
+        display: none;
+      }
+
+      /* Navigation Desktop */
       nav ul {
         list-style: none;
         display: flex;
@@ -179,6 +186,11 @@
         width: 100%;
       }
 
+      /* Menu Mobile (Default Tersembunyi di Desktop) */
+      .mobile-nav {
+        display: none;
+      }
+
       /* ------------------
          3. SEKSI UTAMA (HERO) & CTA HOVER GLOW
          ------------------ */
@@ -205,6 +217,7 @@
         font-weight: 700;
         margin-bottom: 10px;
         color: #ffffff;
+        transition: font-size 0.3s;
       }
 
       /* H2 untuk Typing Effect */
@@ -216,6 +229,7 @@
         display: inline-block;
         position: relative;
         min-height: 40px;
+        transition: font-size 0.3s;
       }
 
       .hero-content p {
@@ -382,6 +396,7 @@
         z-index: 10;
       }
 
+      /* Desktop Footer - Social Links */
       .social-links {
         margin-bottom: 15px;
       }
@@ -407,35 +422,125 @@
         color: var(--color-text);
       }
 
-      /* ------------------
-         RESPONSIVE
-         ------------------ */
-      @media (max-width: 992px) {
-        .vision-mission-grid {
-          flex-direction: column;
-        }
-      }
-
+      /* =================================
+         BAGIAN CSS MOBILE RESPONSIVE
+         (Hanya berlaku untuk layar kecil)
+         ================================= */
       @media (max-width: 768px) {
-        header {
-          padding: 0;
-        }
-
+        /* ------------------
+             1. PENYESUAIAN HEADER MOBILE
+             ------------------ */
         .header-content {
           padding: 0 20px;
-          justify-content: center;
+          /* Mengubah tata letak agar Logo di Kiri dan Tombol di Kanan */
+          justify-content: space-between;
         }
 
-        nav ul {
+        /* Logo Diperkecil (sesuai permintaan) */
+        .logo {
+          font-size: 1.5rem; /* Lebih kecil */
+        }
+
+        /* Menyembunyikan Menu Asli (untuk diganti hamburger) */
+        nav {
           display: none;
         }
 
+        /* Tombol Hamburger */
+        .menu-toggle {
+          display: block; /* Tampilkan tombol hamburger */
+          font-size: 1.5rem;
+          color: var(--color-secondary);
+          cursor: pointer;
+          z-index: 1001;
+        }
+
+        /* Gaya Menu Dropdown Mobile */
+        .mobile-nav {
+          display: none; /* Default tersembunyi */
+          position: absolute;
+          top: var(--header-height);
+          right: 0;
+          width: 70%;
+          background-color: var(--color-dark); /* Latar belakang menu */
+          border-left: 1px solid var(--border-color);
+          box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.7);
+          padding: 20px 0;
+          z-index: 999;
+          transform: translateX(100%); /* Sembunyikan ke kanan */
+          transition: transform 0.4s ease-out;
+        }
+
+        .mobile-nav.open {
+          display: block;
+          transform: translateX(0); /* Tampilkan saat aktif */
+        }
+
+        .mobile-nav ul {
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          padding: 0 20px;
+        }
+
+        .mobile-nav ul li {
+          margin: 15px 0;
+          width: 100%;
+        }
+
+        .mobile-nav ul li a {
+          display: block;
+          padding: 10px 0;
+          font-size: 1.1rem;
+          font-weight: 500;
+          color: var(--color-text);
+          text-decoration: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ------------------
+             2. PENYESUAIAN BODY DAN FOOTER MOBILE
+             ------------------ */
         .hero-content h1 {
           font-size: 2.5rem;
         }
 
         .hero-content h2 {
           font-size: 1.8rem;
+        }
+
+        .vision-mission-grid {
+          flex-direction: column;
+        }
+
+        .vm-card {
+          flex: unset; /* Hilangkan flex */
+        }
+
+        /* Footer Horizontal Responsif */
+        .social-links {
+          display: flex; /* Aktifkan Flexbox */
+          flex-direction: row; /* Jadikan horizontal */
+          justify-content: space-around; /* Jarak merata */
+          flex-wrap: wrap; /* Jika terlalu banyak, bungkus ke bawah */
+          margin-bottom: 20px;
+        }
+
+        .social-links a {
+          /* Posisikan teks dan ikon di atas satu sama lain di mobile */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+
+          margin: 10px 5px; /* Kurangi margin horizontal, tambahkan vertikal */
+          font-size: 0.9rem; /* Sedikit diperkecil */
+        }
+
+        .social-links i {
+          margin-bottom: 5px; /* Pindah ikon ke atas teks */
+          margin-right: 0; /* Hilangkan margin kanan */
+          font-size: 1.2rem;
         }
       }
     </style>
@@ -448,6 +553,7 @@
     <header id="main-header">
       <div class="header-content">
         <a href="#home" class="logo"> Nexaweb.lab </a>
+
         <nav>
           <ul>
             <li><a href="#home" class="active">Home</a></li>
@@ -455,6 +561,18 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
+
+        <div class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+
+      <div class="mobile-nav">
+        <ul>
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
       </div>
     </header>
 
@@ -475,9 +593,9 @@
         <h2 id="typing-text" class="reveal-item"></h2>
 
         <p class="reveal-item" style="transition-delay: 0.1s">
-          Nexaweb.lab adalah Digital Growth Partner yang fokus membangun website
-          yang efektif dan berkelas untuk Usaha Mikro, Kecil, dan Menengah
-          (UMKM), membantu mereka siap bersaing di era digital.
+          Nexaweb.lab adalah **Digital Growth Partner** yang fokus membangun
+          *website* yang efektif dan berkelas untuk Usaha Mikro, Kecil, dan
+          Menengah (UMKM), membantu mereka siap bersaing di era digital.
         </p>
         <a
           href="https://wa.me/6289517587498"
@@ -553,9 +671,9 @@
         class="reveal-item"
         style="max-width: 800px; margin: 0 auto; text-align: center"
       >
-        Mari berdiskusi tentang ide bisnis Anda dan bagaimana website yang
+        Mari berdiskusi tentang ide bisnis Anda dan bagaimana *website* yang
         efektif dapat melipatgandakan peluang Anda. Hubungi kami melalui tombol
-        di bawah atau tautan di footer!
+        di bawah atau tautan di *footer*!
       </p>
       <div
         class="reveal-item"
@@ -595,6 +713,9 @@
       const sphere2 = document.querySelector(".sphere-2");
       const sections = document.querySelectorAll("section");
       const navLinks = document.querySelectorAll("nav a");
+
+      const menuToggle = document.querySelector(".menu-toggle");
+      const mobileNav = document.querySelector(".mobile-nav");
 
       // --- 1. PRELOADER & Typing Effect Initialization ---
       window.addEventListener("load", () => {
@@ -655,7 +776,7 @@
         }
       }
 
-      // --- 3. [FITUR BARU] SCROLL REVEAL LOGIC ---
+      // --- 3. SCROLL REVEAL LOGIC ---
       function setupScrollReveal() {
         const revealItems = document.querySelectorAll(".reveal-item");
 
@@ -710,7 +831,7 @@
 
         handleStickyHeader();
 
-        // Logic Active Link
+        // Logic Active Link (Hanya untuk Desktop Nav)
         let current = "";
         const scrollY = window.scrollY + header.offsetHeight + 1;
 
@@ -738,26 +859,50 @@
       handleScroll();
 
       // --- 5. Smooth Scroll Logic ---
-      document.querySelectorAll("nav a").forEach((anchor) => {
+      document.querySelectorAll("a[href^='#']").forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
-          e.preventDefault();
+          // Hanya proses link internal
+          if (this.getAttribute("href").length > 1) {
+            e.preventDefault();
 
-          const targetId = this.getAttribute("href").substring(1);
-          const targetElement = document.getElementById(targetId);
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
 
-          document.querySelectorAll("nav a").forEach((link) => {
-            link.classList.remove("active");
-          });
-          this.classList.add("active");
-
-          if (targetElement) {
-            window.scrollTo({
-              top: targetElement.offsetTop - header.offsetHeight,
-              behavior: "smooth",
+            // Update active state di Desktop Nav
+            document.querySelectorAll("nav a").forEach((link) => {
+              link.classList.remove("active");
             });
+            // Update active state di Mobile Nav
+            document.querySelectorAll(".mobile-nav a").forEach((link) => {
+              link.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - header.offsetHeight,
+                behavior: "smooth",
+              });
+            }
           }
         });
       });
+
+      // --- 6. LOGIC HAMBURGER MENU ---
+      if (menuToggle && mobileNav) {
+        // Fungsi untuk mengaktifkan/menonaktifkan menu mobile
+        menuToggle.addEventListener("click", () => {
+          mobileNav.classList.toggle("open");
+        });
+
+        // Menutup menu saat link di klik (untuk navigasi)
+        mobileNav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileNav.classList.remove("open");
+          });
+        });
+      }
     </script>
   </body>
 </html>
