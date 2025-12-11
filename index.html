@@ -47,6 +47,25 @@
         margin: 0 auto;
         padding: 0 40px;
       }
+      
+      /* Sosial Media Icon Styling Dasar */
+      .social-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--color-text-light);
+        transition: color var(--transition-speed);
+        gap: 0.5rem; 
+      }
+      .social-link:hover {
+          color: var(--color-accent);
+      }
+      .social-icon svg {
+          width: 20px;
+          height: 20px;
+          fill: currentColor; /* Mengambil warna dari parent (social-link) */
+          transition: fill var(--transition-speed);
+      }
 
       /* --- II. Header & Nav --- */
       #main-header {
@@ -121,7 +140,7 @@
         opacity: 0.85; /* Efek hover premium */
       }
 
-      /* --- III. Hero Section (Peningkatan Premium) --- */
+      /* --- III. Hero Section (Tombol Glow FIX) --- */
       #hero {
         padding-top: 10rem;
         min-height: 80vh;
@@ -165,12 +184,17 @@
         font-size: 0.9rem;
         transition: all var(--transition-speed) ease;
       }
-      .cta-button:hover {
+      
+      /* FIX: Efek Glow untuk Desktop (dan Mobile) */
+      .cta-button:hover, 
+      .cta-button:focus /* Tambahkan fokus untuk keyboard/mobile */
+      {
         background-color: var(--color-bg-main);
         color: var(--color-accent);
-        box-shadow: 0 0 15px rgba(196, 167, 109, 0.8);
+        /* Efek Glow Emas */
+        box-shadow: 0 0 15px rgba(196, 167, 109, 0.8); 
       }
-
+      
       /* --- IV. Main Content --- */
       #main-sections {
         padding: var(--spacing-large) 0;
@@ -197,7 +221,6 @@
         position: relative;
       }
       
-      /* Garis Aksen Emas sebagai Separator */
       .about-content-grid::after {
           content: '';
           position: absolute;
@@ -273,11 +296,13 @@
         align-items: center;
       }
       
-      /* Social Links & Icons */
+      /* FIX: Tambah gap di footer social links agar tidak menumpuk */
       .social-links {
         display: flex;
-        gap: 2rem;
+        gap: 2rem; 
         align-items: center;
+        /* Tambahkan jarak margin jika Anda rasa terlalu dekat dengan tepi kanan desktop */
+        margin-right: 0; 
       }
 
       /* Ikon WhatsApp Floating */
@@ -300,42 +325,49 @@
           transform: scale(1.05); 
           box-shadow: 0 0 25px rgba(37, 211, 102, 0.8); 
       }
-      
-      /* --- VI. Responsiveness (Perbaikan Mobile) --- */
+      #whatsapp-float a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+      }
+      #whatsapp-float svg {
+          fill: white;
+          width: 30px; 
+          height: 30px;
+      }
+
+      /* --- VI. Responsiveness (Perbaikan Mobile Final) --- */
       @media (max-width: 1024px) {
         
         .container {
-          padding: 0 20px; /* Kurangi padding container di HP */
+          padding: 0 20px; 
         }
         
-        /* 1. Header & Navigasi: Sembunyikan Navigasi di Mobile agar tidak menumpuk */
+        /* Navigasi */
         .nav-links {
             display: none; 
         }
-        /* Biarkan logo di tengah (opsional, tapi di sini saya biarkan di kiri) */
         
-        /* 2. Judul Hero: Perkecil ukuran font */
+        /* Judul Hero */
         #hero {
           min-height: 50vh;
-          padding-top: 7rem; /* Naikkan sedikit padding atas */
+          padding-top: 7rem; 
           padding-bottom: 5rem;
         }
         .hero-title {
-          font-size: 2.5rem; /* Dari 4.5rem menjadi 2.5rem */
+          font-size: 2.5rem; 
           margin-bottom: 1rem;
         }
-        .hero-subtitle {
-          font-size: 1rem;
-        }
         
-        /* 3. About & Services: Pastikan menggunakan 1 kolom (sudah ada, tapi kita periksa) */
+        /* Grid */
         .about-content-grid,
         .services-grid-cards {
           grid-template-columns: 1fr;
-          gap: 1.5rem; /* Kurangi jarak antar kotak */
+          gap: 1.5rem; 
         }
         
-        /* Garis Aksen menyesuaikan */
         .about-content-grid::after {
             width: 50%; 
         }
@@ -344,29 +376,30 @@
             font-size: 2.2rem;
         }
         
-        /* 4. Footer: Atur ulang tata letak footer agar tidak menumpuk */
+        /* Footer FIX Numpuk Ikon */
         .footer-grid {
           flex-direction: column;
-          align-items: flex-start; /* Rata kiri semua di HP */
-          gap: 1rem;
+          align-items: flex-start; 
+          gap: 1.5rem; /* Tambah jarak vertikal antar blok footer */
         }
         .footer-left {
-            margin-bottom: 0.5rem;
-        }
-        .social-links {
-            gap: 1.5rem; /* Kurangi jarak antar ikon sosmed */
+            margin-bottom: 0;
         }
         
-      }
-      
-      /* Fix untuk floating WhatsApp agar tidak menempel di footer */
-      @media (max-width: 1024px) {
-           #whatsapp-float {
-                bottom: 25px; /* Jarak yang cukup dari bawah */
-                right: 20px;
-                width: 50px; /* Sedikit perkecil ikon */
-                height: 50px;
-            }
+        /* Perluas Jarak Antar Ikon Sosial Media di HP */
+        .social-links {
+            gap: 2.5rem; /* Menambah jarak horizontal agar tidak menumpuk */
+            /* Pastikan ikon tidak terlalu mepet ke tepi kiri/kanan */
+            padding-left: 0; 
+        }
+        
+        /* Floating WhatsApp FIX */
+        #whatsapp-float {
+            bottom: 25px; 
+            right: 20px;
+            width: 50px; 
+            height: 50px;
+        }
       }
       
     </style>
@@ -425,7 +458,7 @@
       <section id="hero">
         <div class="container">
           <h1 class="hero-title">
-            Nexaweb.lab Jasa Website UMKM Premium dengan Desain Eksklusif.
+            Nexaweb.lab Jasa Website UMKM Profesional & Premium
           </h1>
           <p class="hero-subtitle">
             Desain Eksklusif, Performa Blazing Fast, Arsitektur Bersih.
@@ -459,6 +492,8 @@
                     background-color: var(--color-text-dark);
                     border-color: var(--color-text-dark);
                     color: var(--color-text-light);
+                    /* Style khusus agar tidak glow di sini, jika Anda mau */
+                    box-shadow: none; 
                   "
                   >Konsultasi Gratis</a
                 >
@@ -539,7 +574,7 @@
 
         <div class="social-links">
           <a
-            href="https://www.instagram.com/nexaweb.lab?igsh=MXZqM2Zqd3pwZHA5bQ=="
+            href="https://www.instagram.com/nexaweb.lab"
             target="_blank"
             class="social-link instagram-link"
             aria-label="Instagram Nexaweb Lab"
@@ -585,8 +620,10 @@
               e.preventDefault();
               const targetElement = document.querySelector(href);
               if (targetElement) {
-                const headerHeight =
-                  document.getElementById("main-header").offsetHeight;
+                // Mendapatkan tinggi header yang fixed
+                const headerHeight = document.getElementById("main-header").offsetHeight;
+                
+                // Scroll ke posisi target dikurangi tinggi header
                 window.scrollTo({
                   top: targetElement.offsetTop - headerHeight,
                   behavior: "smooth",
