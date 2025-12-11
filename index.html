@@ -1,636 +1,761 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nexaweb.lab | Blueprint Digital Eksklusif</title>
+    <title>Nexaweb.lab - Bikin Usaha Anda Terkenal Luas Secara Digital</title>
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Montserrat:wght@300;400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
 
     <style>
-      /* --- I. Global Reset & Design Tokens --- */
+      /* =================================
+         Bagian CSS
+         ================================= */
       :root {
-        --color-bg-main: #1c1c1c;
-        --color-bg-darker: #121212;
-        --color-accent: #c4a76d; /* Gold/Metallic Yellow */
-        --color-text-light: #f0f0f0; /* Putih */
-        --color-text-dark: #121212; /* Hitam untuk teks di latar putih */
-        --color-text-muted: #a0a0a0;
-        --color-border-light: #e0e0e0;
-        --font-display: "Oswald", sans-serif;
-        --font-body: "Montserrat", sans-serif;
-        --spacing-large: 6rem;
-        --transition-speed: 0.3s;
+        /* Definisi Warna */
+        --color-primary: #0077b6; /* Biru Neon/Ocean */
+        --color-secondary: #00b4d8; /* Biru Muda */
+        --color-dark: #0a0a0a; /* Hitam Pekat */
+        --color-text: #e0e0e0; /* Teks Putih Keabu-abuan */
+        --color-accent: #90e0ef; /* Aksen Biru Sangat Muda */
+        --color-bg-start: #010410; /* Biru Sangat Gelap (Awal Gradasi) */
+        --header-height: 70px; /* Tinggi header */
+        --border-color: rgba(
+          0,
+          119,
+          182,
+          0.5
+        ); /* Warna bingkai (Biru Transparan) */
+        --header-bg: rgba(13, 22, 42, 0.9);
       }
 
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
+      * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
 
       body {
-        font-family: var(--font-body);
+        font-family: "Poppins", sans-serif;
+        color: var(--color-text);
+        /* Gradasi Biru Gelap ke Hitam */
+        background: linear-gradient(
+          135deg,
+          var(--color-bg-start) 0%,
+          var(--color-dark) 80%
+        );
+        min-height: 100vh;
         line-height: 1.6;
-        color: var(--color-text-light);
-        background-color: var(--color-bg-main);
         overflow-x: hidden;
-        scroll-behavior: smooth;
       }
 
-      .container {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 0 40px;
-      }
-      
-      /* Sosial Media Icon Styling Dasar */
-      .social-link {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: var(--color-text-light);
-        transition: color var(--transition-speed);
-        gap: 0.5rem; 
-      }
-      .social-link:hover {
-          color: var(--color-accent);
-      }
-      .social-icon svg {
-          width: 20px;
-          height: 20px;
-          fill: currentColor; /* Mengambil warna dari parent (social-link) */
-          transition: fill var(--transition-speed);
-      }
-
-      /* --- II. Header & Nav --- */
-      #main-header {
+      /* ------------------
+         1. PRELOADER (LOADING SCREEN)
+         ------------------ */
+      #preloader {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 1000;
-        padding: 1.2rem 0;
-        background-color: var(--color-bg-main);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        height: 100%;
+        background-color: var(--color-bg-start);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 0.5s ease;
       }
 
-      #main-header .container {
+      .loader {
+        border: 5px solid rgba(255, 255, 255, 0.2);
+        border-top: 5px solid var(--color-secondary);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1.5s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ------------------
+         2. HEADER DENGAN BINGKAI PENUH & STICKY EFFECT
+         ------------------ */
+      header {
+        width: 100%;
+        height: var(--header-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: var(--header-bg); /* Semi-transparent default */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        border-bottom: 2px solid var(--border-color);
+        transition: background-color 0.3s, box-shadow 0.3s;
+      }
+
+      /* STICKY HEADER BG CHANGE */
+      .scrolled-header {
+        /* Mengubah header menjadi solid saat di-scroll untuk keterbacaan */
+        background-color: var(--color-dark);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+      }
+
+      .header-content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0 5%;
       }
 
-      .logo-link {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: var(--color-text-light);
-        font-family: var(--font-display);
-        font-size: 1.4rem;
-        font-weight: 500;
-        letter-spacing: 0.1em;
-      }
-
-      .logo-icon {
-        width: 25px;
-        height: 25px;
-        margin-right: 10px;
-        display: inline-flex;
-        align-items: center;
-      }
-      .logo-icon svg {
-        stroke: var(--color-text-light);
-        fill: none;
-        stroke-width: 5;
-        transform: scale(0.85);
-        transition: stroke var(--transition-speed);
-      }
-
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 2.5rem;
-      }
-      .nav-links a {
-        text-decoration: none;
-        color: var(--color-text-light);
-        font-size: 0.9rem;
-        font-weight: 400;
-        transition: color var(--transition-speed);
-      }
-      .nav-links a:hover {
-        color: var(--color-accent);
-      }
-      .nav-links .cta-h-sew {
-        background-color: var(--color-accent);
-        color: var(--color-bg-main);
-        padding: 0.6rem 1.5rem;
-        font-weight: 600;
-        border-radius: 2px;
-        text-transform: uppercase;
-        transition: opacity var(--transition-speed);
-      }
-      .nav-links .cta-h-sew:hover {
-        opacity: 0.85; /* Efek hover premium */
-      }
-
-      /* --- III. Hero Section (Tombol Glow FIX) --- */
-      #hero {
-        padding-top: 10rem;
-        min-height: 80vh;
-        background-color: var(--color-bg-darker);
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        text-align: center;
-        padding-bottom: 8rem;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      }
-      #hero .container {
-        max-width: 900px;
-        margin-top: 4rem;
-      }
-      .hero-title {
-        font-family: var(--font-display);
-        font-size: 4.5rem;
-        line-height: 1.1;
-        margin-bottom: 1.5rem;
+      .logo {
+        font-size: 1.8rem;
         font-weight: 700;
+        color: var(--color-primary);
+        text-decoration: none;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        text-shadow: 0 0 5px rgba(196, 167, 109, 0.4); 
       }
-      .hero-subtitle {
+
+      nav ul {
+        list-style: none;
+        display: flex;
+      }
+
+      nav ul li {
+        margin-left: 35px;
+      }
+
+      nav ul li a {
+        color: var(--color-text);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        position: relative;
+        padding: 5px 0;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: var(--color-secondary);
+      }
+
+      /* Efek Garis Bawah (Underline) Premium */
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background-color: var(--color-secondary);
+        transition: width 0.3s ease-in-out;
+        border-radius: 2px;
+      }
+
+      nav ul li a:hover::after,
+      nav ul li a.active::after {
+        width: 100%;
+      }
+
+      /* ------------------
+         3. SEKSI UTAMA (HERO) & CTA HOVER GLOW
+         ------------------ */
+      .hero-section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 5%;
+        position: relative;
+        padding-top: calc(var(--header-height) + 20px);
+      }
+
+      .hero-content {
+        max-width: 800px;
+        z-index: 2;
+      }
+
+      /* H1 - Judul Utama */
+      .hero-content h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #ffffff;
+      }
+
+      /* H2 untuk Typing Effect */
+      .hero-content h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: var(--color-secondary);
+        margin-bottom: 30px;
+        display: inline-block;
+        position: relative;
+        min-height: 40px;
+      }
+
+      .hero-content p {
         font-size: 1.1rem;
-        font-weight: 300;
-        color: var(--color-text-muted);
-        margin-bottom: 2rem;
+        margin-bottom: 40px;
+        color: var(--color-text);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
       }
+
       .cta-button {
         display: inline-block;
-        padding: 0.8rem 2.5rem;
-        background-color: var(--color-accent);
-        color: var(--color-bg-main);
+        padding: 14px 35px;
+        background: linear-gradient(
+          90deg,
+          var(--color-primary),
+          var(--color-secondary)
+        );
+        color: var(--color-dark);
         text-decoration: none;
         font-weight: 600;
+        border-radius: 50px;
+        /* Custom Hover/Glow transition */
+        transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 119, 182, 0.4);
+        filter: drop-shadow(
+          0 0 5px rgba(0, 180, 216, 0)
+        ); /* Default: no glow */
+        text-transform: uppercase;
         letter-spacing: 1px;
-        border: 2px solid var(--color-accent);
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        transition: all var(--transition-speed) ease;
-      }
-      
-      /* FIX: Efek Glow untuk Desktop (dan Mobile) */
-      .cta-button:hover, 
-      .cta-button:focus /* Tambahkan fokus untuk keyboard/mobile */
-      {
-        background-color: var(--color-bg-main);
-        color: var(--color-accent);
-        /* Efek Glow Emas */
-        box-shadow: 0 0 15px rgba(196, 167, 109, 0.8); 
-      }
-      
-      /* --- IV. Main Content --- */
-      #main-sections {
-        padding: var(--spacing-large) 0;
-        background-color: var(--color-text-light);
-        color: var(--color-text-dark);
-      }
-      .about-section {
-        padding-bottom: 4rem;
-      }
-      .section-title-dark {
-        font-family: var(--font-display);
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 2rem;
-        text-transform: uppercase;
       }
 
-      /* Grid Kotak Premium */
-      .about-content-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        padding-bottom: 4rem;
+      /* CTA Hover Glow Effect */
+      .cta-button:hover {
+        transform: translateY(-5px) scale(1.02); /* Lebih agresif saat hover */
+        box-shadow: 0 10px 25px rgba(0, 119, 182, 0.7);
+        filter: drop-shadow(
+          0 0 15px var(--color-secondary)
+        ); /* Efek glow neon */
+      }
+
+      /* ------------------
+         4. DEKORATIF (SPHERE)
+         ------------------ */
+      .decorative-sphere {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.15;
+        filter: blur(50px);
+        background: var(--color-primary);
+        z-index: 1;
+        transition: transform 0.1s linear;
+      }
+
+      .sphere-1 {
+        width: 300px;
+        height: 300px;
+        top: 15%;
+        right: 10%;
+        background: var(--color-secondary);
+      }
+
+      .sphere-2 {
+        width: 150px;
+        height: 150px;
+        bottom: 5%;
+        left: 5%;
+        background: var(--color-accent);
+      }
+
+      /* ------------------
+         5. SCROLL REVEAL ANIMATION STYLES
+         ------------------ */
+      .reveal-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .reveal-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ------------------
+         6. SEKSI ABOUT (VISI & MISI) & FOOTER
+         ------------------ */
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .about-section {
+        padding: 100px 5%;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .about-section h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+        color: var(--color-secondary);
+      }
+
+      .vision-mission-grid {
+        display: flex;
+        gap: 40px;
+        margin-top: 50px;
+      }
+
+      .vm-card {
+        flex: 1;
+        padding: 30px;
+        background-color: rgba(0, 119, 182, 0.1);
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s;
+      }
+
+      .vm-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 180, 216, 0.4);
+      }
+
+      .vm-card h3 {
+        font-size: 1.8rem;
+        color: var(--color-primary);
+        margin-bottom: 15px;
+        border-bottom: 2px solid var(--color-secondary);
+        padding-bottom: 10px;
+      }
+
+      .vm-card ul {
+        list-style: none;
+      }
+
+      .vm-card li {
+        margin-bottom: 10px;
+        padding-left: 15px;
         position: relative;
       }
-      
-      .about-content-grid::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 20%; 
-          height: 3px;
-          background-color: var(--color-accent);
-      }
-      
-      .premium-box {
-        padding: 2.5rem;
-        background-color: #fafafa;
-        border: 1px solid var(--color-accent);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        height: 100%;
-        transition: box-shadow var(--transition-speed);
-      }
-      .premium-box:hover {
-        box-shadow: 0 8px 25px rgba(196, 167, 109, 0.2); 
+
+      .vm-card li::before {
+        content: "•";
+        color: var(--color-secondary);
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
       }
 
-      .box-title {
-        font-family: var(--font-display);
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        color: var(--color-accent);
-      }
-
-      .about-text {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: #333;
-      }
-
-      /* Services Grid Cards - Peningkatan Hover */
-      .services-grid-cards {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2.5rem;
-        margin-top: 3rem;
-      }
-      .service-card-light {
-        padding: 1.5rem;
-        border: 1px solid var(--color-accent);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        text-align: center;
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-      .service-card-light:hover {
-        transform: translateY(-5px); 
-        box-shadow: 0 10px 20px rgba(196, 167, 109, 0.3); 
-      }
-      .service-card-light strong {
-        color: var(--color-accent);
-        font-size: 1.1rem;
-        display: block;
-        margin-bottom: 0.5rem;
-      }
-
-      /* --- V. Footer --- */
+      /* FOOTER */
       footer {
-        background-color: var(--color-bg-darker);
-        padding: 1.5rem 0;
-        border-top: 1px solid rgba(196, 167, 109, 0.1);
+        width: 100%;
+        background-color: var(--color-dark);
+        padding: 30px 5%;
+        text-align: center;
+        border-top: 2px solid var(--border-color);
+        margin-top: 50px;
+        position: relative;
+        z-index: 10;
       }
-      .footer-grid {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      
-      /* FIX: Tambah gap di footer social links agar tidak menumpuk */
+
       .social-links {
-        display: flex;
-        gap: 2rem; 
-        align-items: center;
-        /* Tambahkan jarak margin jika Anda rasa terlalu dekat dengan tepi kanan desktop */
-        margin-right: 0; 
+        margin-bottom: 15px;
       }
 
-      /* Ikon WhatsApp Floating */
-      #whatsapp-float {
-        position: fixed;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        width: 55px;
-        height: 55px;
-        background-color: #25d366; 
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-        z-index: 100;
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-      #whatsapp-float:hover {
-          transform: scale(1.05); 
-          box-shadow: 0 0 25px rgba(37, 211, 102, 0.8); 
-      }
-      #whatsapp-float a {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          height: 100%;
-      }
-      #whatsapp-float svg {
-          fill: white;
-          width: 30px; 
-          height: 30px;
+      .social-links a {
+        color: var(--color-accent);
+        text-decoration: none;
+        font-size: 1.2rem;
+        margin: 0 15px;
+        transition: color 0.3s;
       }
 
-      /* --- VI. Responsiveness (Perbaikan Mobile Final) --- */
-      @media (max-width: 1024px) {
-        
-        .container {
-          padding: 0 20px; 
-        }
-        
-        /* Navigasi */
-        .nav-links {
-            display: none; 
-        }
-        
-        /* Judul Hero */
-        #hero {
-          min-height: 50vh;
-          padding-top: 7rem; 
-          padding-bottom: 5rem;
-        }
-        .hero-title {
-          font-size: 2.5rem; 
-          margin-bottom: 1rem;
-        }
-        
-        /* Grid */
-        .about-content-grid,
-        .services-grid-cards {
-          grid-template-columns: 1fr;
-          gap: 1.5rem; 
-        }
-        
-        .about-content-grid::after {
-            width: 50%; 
-        }
+      .social-links a:hover {
+        color: var(--color-primary);
+      }
 
-        .section-title-dark {
-            font-size: 2.2rem;
-        }
-        
-        /* Footer FIX Numpuk Ikon */
-        .footer-grid {
+      .social-links i {
+        margin-right: 8px;
+      }
+
+      .copyright {
+        font-size: 0.9rem;
+        color: var(--color-text);
+      }
+
+      /* ------------------
+         RESPONSIVE
+         ------------------ */
+      @media (max-width: 992px) {
+        .vision-mission-grid {
           flex-direction: column;
-          align-items: flex-start; 
-          gap: 1.5rem; /* Tambah jarak vertikal antar blok footer */
-        }
-        .footer-left {
-            margin-bottom: 0;
-        }
-        
-        /* Perluas Jarak Antar Ikon Sosial Media di HP */
-        .social-links {
-            gap: 2.5rem; /* Menambah jarak horizontal agar tidak menumpuk */
-            /* Pastikan ikon tidak terlalu mepet ke tepi kiri/kanan */
-            padding-left: 0; 
-        }
-        
-        /* Floating WhatsApp FIX */
-        #whatsapp-float {
-            bottom: 25px; 
-            right: 20px;
-            width: 50px; 
-            height: 50px;
         }
       }
-      
+
+      @media (max-width: 768px) {
+        header {
+          padding: 0;
+        }
+
+        .header-content {
+          padding: 0 20px;
+          justify-content: center;
+        }
+
+        nav ul {
+          display: none;
+        }
+
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-content h2 {
+          font-size: 1.8rem;
+        }
+      }
     </style>
   </head>
   <body>
-    <svg style="display: none">
-      <symbol id="nexa-logo-final" viewBox="0 0 100 100">
-        <g
-          stroke="currentColor"
-          stroke-width="8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          fill="none"
-        >
-          <path
-            d="M50 50 L0 25 M50 50 L100 25 M50 50 L50 0 M50 50 L0 75 M50 50 L100 75 M50 50 L50 100"
-          />
-          <path
-            d="M0 25 L50 0 M100 25 L50 0 M0 75 L50 100 M100 75 L50 100 M0 25 L0 75 M100 25 L100 75"
-            stroke-width="3"
-            stroke-opacity="0.8"
-          />
-        </g>
-      </symbol>
-
-      <symbol id="whatsapp-icon" viewBox="0 0 448 512">
-        <path
-          d="M380.9 97.1C339.4 55.4 283.4 32 225.2 32c-96 0-174.5 78.4-174.5 174.5 0 29.1 8.2 57 24 81.3L37.1 433.2c-2.6 9.8 6.9 18.2 16.7 15.6l96.1-24.8c24.6 15.2 53.6 23.4 83.3 23.4 96 0 174.5-78.4 174.5-174.5 0-58.2-23.4-114.2-65.1-155.7zM225.2 411.3c-24.6 0-48.4-6.8-69.1-19.8l-5.1-3-50.6 13.1 13.1-50.6-3-5.1c-13-20.7-19.8-44.5-19.8-69.1 0-82.9 67.4-150.3 150.3-150.3 40.5 0 78.6 15.8 107.4 44.5 28.7 28.7 44.5 66.8 44.5 107.4 0 82.9-67.4 150.3-150.3 150.3z"
-        />
-      </symbol>
-
-      <symbol id="instagram-icon" viewBox="0 0 448 512">
-        <path
-          d="M224.1 144.1c-43.1 0-78 34.9-78 78s34.9 78 78 78 78-34.9 78-78-34.9-78-78-78zm138.3 0c-15.1 0-27.4 12.3-27.4 27.4s12.3 27.4 27.4 27.4 27.4-12.3 27.4-27.4-12.3-27.4-27.4-27.4zm-138.3 145c-37 0-66.9-30-66.9-66.9S187.1 155 224.1 155s66.9 30 66.9 66.9-29.9 66.9-66.9 66.9zm171.8-132.8c-1.3 0-2.6 0-3.9-.1-6.8-.2-13.6-.3-20.3-.3h-3.3c-74.9 0-136 61.1-136 136s61.1 136 136 136h3.3c6.7 0 13.5-.1 20.3-.3 1.3 0 2.6-.1 3.9-.1 12.3 0 22.3-10 22.3-22.3v-191.4c0-12.3-10-22.3-22.3-22.3zM435.5 224.1c0-120.3-97.7-218-218-218S-.5 103.8-.5 224.1s97.7 218 218 218 218-97.7 218-218zm-229.5 73.8c-55.2 0-100-44.8-100-100s44.8-100 100-100 100 44.8 100 100-44.8 100-100 100zm149.6-132.8c-13.7 0-24.8 11.1-24.8 24.8s11.1 24.8 24.8 24.8 24.8-11.1 24.8-24.8-11.1-24.8-24.8-24.8z"
-        />
-      </symbol>
-    </svg>
-
-    <header id="main-header">
-      <nav class="container">
-        <a href="#" class="logo-link">
-          <span class="logo-icon">
-            <svg><use href="#nexa-logo-final"></use></svg>
-          </span>
-          Nexaweb.lab
-        </a>
-        <div class="nav-links">
-          <a href="#about">Tentang Kami</a>
-          <a href="#services">Layanan Premium</a>
-          <a href="#contact" class="cta-h-sew">Hubungi Kami</a>
-        </div>
-      </nav>
-    </header>
-
-    <main>
-      <section id="hero">
-        <div class="container">
-          <h1 class="hero-title">
-            Nexaweb.lab Jasa Website UMKM Profesional & Premium
-          </h1>
-          <p class="hero-subtitle">
-            Desain Eksklusif, Performa Blazing Fast, Arsitektur Bersih.
-          </p>
-          <a href="#services" class="cta-button">Eksplorasi Solusi</a>
-        </div>
-      </section>
-
-      <section id="main-sections">
-        <div class="container">
-          <div class="about-section" id="about">
-            <h2 class="section-title-dark">Tentang Kami</h2>
-
-            <div class="about-content-grid">
-              <div class="premium-box">
-                <h3 class="box-title">Tentang Nexaweb.lab</h3>
-                <p class="about-text">
-                  Nexaweb.lab adalah mitra strategis yang berdedikasi untuk
-                  mentransformasi potensi bisnis UMKM Anda ke ranah digital
-                  dengan standar premium dan profesionalisme tinggi. Kami
-                  percaya bahwa setiap bisnis, besar maupun kecil, berhak
-                  memiliki representasi online yang tidak hanya fungsional,
-                  tetapi juga menonjol dan berkelas.
-                </p>
-                <a
-                  href="https://wa.me/6289517587498"
-                  target="_blank"
-                  class="cta-button"
-                  style="
-                    margin-top: 2rem;
-                    background-color: var(--color-text-dark);
-                    border-color: var(--color-text-dark);
-                    color: var(--color-text-light);
-                    /* Style khusus agar tidak glow di sini, jika Anda mau */
-                    box-shadow: none; 
-                  "
-                  >Konsultasi Gratis</a
-                >
-              </div>
-
-              <div class="premium-box">
-                <h3 class="box-title">Visi & Misi Kami</h3>
-                <ul class="vision-mission-list">
-                  <li>
-                    <strong>Visi</strong>
-                    <p class="about-text">
-                      Kami Menjadi penyedia solusi web terdepan yang
-                      mendefinisikan ulang kualitas website UMKM, menjadikannya
-                      aset digital yang paling kuat, elegan, dan responsive di
-                      pasar.
-                    </p>
-                  </li>
-                  <li>
-                    <strong>Misi</strong>
-                    <p class="about-text">
-                      Menciptakan Blueprint Digital Eksklusif: Kami bertekad
-                      merancang setiap website sebagai aset branding kustom
-                      (Non-Template), dengan fokus pada estetika yang Elegan,
-                      Minimalis, dan Profesional. Menggaransi Kualitas Teknis
-                      Superior: Kami memastikan performa Kecepatan Kilat dan
-                      tampilan 100% Pixel-Perfect Responsive di semua perangkat,
-                      didukung oleh keamanan tingkat lanjut dan integrasi
-                      Premium SEO Ready.
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="services-section" id="services">
-            <h2 class="section-title-dark">Layanan Premium Kami</h2>
-            <p class="hero-subtitle" style="color: #555">
-              Infrastruktur Digital yang Mendorong Eksklusivitas.
-            </p>
-
-            <div class="services-grid-cards">
-              <div class="service-card-light">
-                <strong>Desain Kustom Eksklusif (Bukan Template)</strong>
-                <p>Membangun identitas digital yang unik dan berkelas.</p>
-              </div>
-              <div class="service-card-light">
-                <strong>Performa Maksimal (Fastest Load, Perfect View)</strong>
-                <p>
-                  Jaminan 100% Responsive, Cepat, dan Pixel-Perfect di setiap
-                  perangkat.
-                </p>
-              </div>
-              <div class="service-card-light">
-                <strong>Fondasi Digital Siap Tumbuh</strong>
-                <p>
-                  Website Aman, Terintegrasi Penuh (Social Media/WA), dan
-                  Premium SEO Ready.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer id="contact">
-      <div class="container footer-grid">
-        <div class="footer-left">
-          <a href="#" class="logo-link">
-            <span class="logo-icon">
-              <svg><use href="#nexa-logo-final"></use></svg>
-            </span>
-            Nexaweb.lab
-          </a>
-          <p class="copyright">&copy; 2025 Nexaweb.lab. All Rights Reserved.</p>
-        </div>
-
-        <div class="social-links">
-          <a
-            href="https://www.instagram.com/nexaweb.lab"
-            target="_blank"
-            class="social-link instagram-link"
-            aria-label="Instagram Nexaweb Lab"
-          >
-            <span class="social-icon">
-              <svg><use href="#instagram-icon"></use></svg>
-            </span>
-            <span>Instagram</span>
-          </a>
-          <a
-            href="https://wa.me/6289517587498"
-            target="_blank"
-            class="social-link whatsapp-link"
-            aria-label="WhatsApp Nexaweb Lab"
-          >
-            <span class="social-icon">
-              <svg><use href="#whatsapp-icon"></use></svg>
-            </span>
-            <span>WhatsApp</span>
-          </a>
-        </div>
-      </div>
-    </footer>
-
-    <div id="whatsapp-float">
-      <a
-        href="https://wa.me/6289517587498"
-        target="_blank"
-        aria-label="WhatsApp Contact"
-      >
-        <svg>
-          <use href="#whatsapp-icon"></use>
-        </svg>
-      </a>
+    <div id="preloader">
+      <div class="loader"></div>
     </div>
 
+    <header id="main-header">
+      <div class="header-content">
+        <a href="#home" class="logo"> Nexaweb.lab </a>
+        <nav>
+          <ul>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="home" class="hero-section">
+      <div
+        class="decorative-sphere sphere-1"
+        style="top: 15%; right: 10%"
+      ></div>
+      <div
+        class="decorative-sphere sphere-2"
+        style="bottom: 5%; left: 5%"
+      ></div>
+
+      <div class="hero-content">
+        <p class="reveal-item">Hello, We are Nexaweb.lab 👋</p>
+
+        <h1>Bikin Usaha Anda Terkenal Luas</h1>
+        <h2 id="typing-text" class="reveal-item"></h2>
+
+        <p class="reveal-item" style="transition-delay: 0.1s">
+          Nexaweb.lab adalah Digital Growth Partner yang fokus membangun website
+          yang efektif dan berkelas untuk Usaha Mikro, Kecil, dan Menengah
+          (UMKM), membantu mereka siap bersaing di era digital.
+        </p>
+        <a
+          href="https://wa.me/6289517587498"
+          class="cta-button reveal-item"
+          target="_blank"
+          style="transition-delay: 0.2s"
+          >Mulai Proyek Sekarang</a
+        >
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="section-container">
+        <h2 class="reveal-item">Tentang Kami: Nexaweb.lab</h2>
+        <p
+          class="reveal-item"
+          style="text-align: center; max-width: 900px; margin: 0 auto 50px"
+        >
+          Nexaweb.lab adalah agensi yang berkomitmen untuk memberdayakan UMKM
+          melalui solusi digital berkualitas tinggi. Kami adalah mitra yang Anda
+          butuhkan untuk melangkah ke pasar online.
+        </p>
+
+        <div class="vision-mission-grid">
+          <div class="vm-card reveal-item">
+            <h3>Visi Kami</h3>
+            <p
+              style="
+                color: var(--color-secondary);
+                font-weight: 600;
+                margin-bottom: 20px;
+              "
+            >
+              Menjadi agensi pengembang *website* terdepan yang mendorong 1000+
+              UMKM di Indonesia untuk mencapai pertumbuhan digital yang
+              berkelanjutan.
+            </p>
+          </div>
+
+          <div class="vm-card reveal-item" style="transition-delay: 0.15s">
+            <h3>Misi Kami</h3>
+            <ul>
+              <li>
+                Menyediakan desain *website* yang profesional, responsif, dan
+                mudah digunakan (User-Friendly).
+              </li>
+              <li>
+                Mengedukasi UMKM tentang pentingnya kehadiran online dan
+                pemasaran digital.
+              </li>
+              <li>
+                Menciptakan solusi *website* yang terjangkau namun memiliki
+                kualitas premium.
+              </li>
+              <li>
+                Memberikan dukungan teknis yang cepat dan efisien kepada setiap
+                mitra UMKM kami.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="min-height: 50vh; padding: 100px 5%">
+      <h2
+        class="reveal-item"
+        style="text-align: center; margin-bottom: 30px; font-size: 2rem"
+      >
+        Hubungi Kami
+      </h2>
+      <p
+        class="reveal-item"
+        style="max-width: 800px; margin: 0 auto; text-align: center"
+      >
+        Mari berdiskusi tentang ide bisnis Anda dan bagaimana website yang
+        efektif dapat melipatgandakan peluang Anda. Hubungi kami melalui tombol
+        di bawah atau tautan di footer!
+      </p>
+      <div
+        class="reveal-item"
+        style="text-align: center; margin-top: 30px; transition-delay: 0.1s"
+      >
+        <a href="https://wa.me/6289517587498" class="cta-button" target="_blank"
+          >Chat Via WhatsApp</a
+        >
+      </div>
+    </section>
+
+    <footer>
+      <div class="social-links">
+        <a
+          href="https://wa.me/6289517587498"
+          target="_blank"
+          aria-label="WhatsApp Nexaweb.lab"
+        >
+          <i class="fab fa-whatsapp"></i> WhatsApp: 0895-1758-7498
+        </a>
+        <a
+          href="https://www.instagram.com/nexaweb.lab?igsh=MXZqM2Zqd3pwZHA5bQ=="
+          target="_blank"
+          aria-label="Instagram Nexaweb.lab"
+        >
+          <i class="fab fa-instagram"></i> @Nexaweb.lab
+        </a>
+      </div>
+      <p class="copyright">
+        &copy; 2025 Nexaweb.lab - Digital Growth Partner for UMKM
+      </p>
+    </footer>
+
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            const href = this.getAttribute("href");
-            if (href.length > 1 && href !== "#") {
-              e.preventDefault();
-              const targetElement = document.querySelector(href);
-              if (targetElement) {
-                // Mendapatkan tinggi header yang fixed
-                const headerHeight = document.getElementById("main-header").offsetHeight;
-                
-                // Scroll ke posisi target dikurangi tinggi header
-                window.scrollTo({
-                  top: targetElement.offsetTop - headerHeight,
-                  behavior: "smooth",
-                });
-              }
+      const header = document.getElementById("main-header");
+      const sphere1 = document.querySelector(".sphere-1");
+      const sphere2 = document.querySelector(".sphere-2");
+      const sections = document.querySelectorAll("section");
+      const navLinks = document.querySelectorAll("nav a");
+
+      // --- 1. PRELOADER & Typing Effect Initialization ---
+      window.addEventListener("load", () => {
+        // Sembunyikan preloader setelah halaman selesai dimuat
+        const preloader = document.getElementById("preloader");
+        if (preloader) {
+          preloader.style.opacity = "0";
+          setTimeout(() => {
+            preloader.style.display = "none";
+          }, 500);
+        }
+
+        // Mulai animasi typing dan scroll reveal
+        if (document.getElementById("typing-text")) {
+          setTimeout(startTypingEffect, 500);
+        }
+        setupScrollReveal();
+      });
+
+      // --- 2. TYPING EFFECT LOGIC ---
+      const textElement = document.getElementById("typing-text");
+      const words = [
+        "Secara Digital",
+        "Spesialis Website UMKM",
+        "Digital Growth Partner",
+      ];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typingSpeed = 100;
+      const deletingSpeed = 50;
+      const delayBeforeDelete = 1500;
+
+      function startTypingEffect() {
+        if (!textElement) return;
+
+        const currentWord = words[wordIndex];
+
+        if (isDeleting) {
+          if (charIndex > 0) {
+            textElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(startTypingEffect, deletingSpeed);
+          } else {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(startTypingEffect, typingSpeed);
+          }
+        } else {
+          if (charIndex < currentWord.length) {
+            textElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            setTimeout(startTypingEffect, typingSpeed);
+          } else {
+            isDeleting = true;
+            setTimeout(startTypingEffect, delayBeforeDelete);
+          }
+        }
+      }
+
+      // --- 3. [FITUR BARU] SCROLL REVEAL LOGIC ---
+      function setupScrollReveal() {
+        const revealItems = document.querySelectorAll(".reveal-item");
+
+        // Cek dukungan Intersection Observer (fallback tidak dibuat karena browser modern sudah mendukung)
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              rootMargin: "0px",
+              threshold: 0.1,
             }
+          );
+
+          revealItems.forEach((item) => {
+            observer.observe(item);
           });
+        } else {
+          // Fallback: Tampilkan semua elemen jika IntersectionObserver tidak didukung
+          revealItems.forEach((item) => (item.style.opacity = 1));
+        }
+      }
+
+      // --- 4. PARALLAX EFFECT, SCROLL LOGIC & STICKY HEADER ---
+
+      // LOGIC STICKY HEADER
+      function handleStickyHeader() {
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled-header");
+        } else {
+          header.classList.remove("scrolled-header");
+        }
+      }
+
+      // Fungsi untuk Parallax, Active Link, dan Sticky Header
+      const handleScroll = () => {
+        const scrollPosition = window.scrollY;
+
+        // Parallax Logic
+        if (sphere1) {
+          sphere1.style.transform = `translateY(${scrollPosition * -0.1}px)`;
+        }
+        if (sphere2) {
+          sphere2.style.transform = `translateY(${scrollPosition * 0.15}px)`;
+        }
+
+        handleStickyHeader();
+
+        // Logic Active Link
+        let current = "";
+        const scrollY = window.scrollY + header.offsetHeight + 1;
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").substring(1) === current) {
+            link.classList.add("active");
+          }
+        });
+      };
+
+      // Pasang event listener
+      window.addEventListener("scroll", handleScroll);
+
+      // Jalankan sekali saat load
+      handleScroll();
+
+      // --- 5. Smooth Scroll Logic ---
+      document.querySelectorAll("nav a").forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href").substring(1);
+          const targetElement = document.getElementById(targetId);
+
+          document.querySelectorAll("nav a").forEach((link) => {
+            link.classList.remove("active");
+          });
+          this.classList.add("active");
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - header.offsetHeight,
+              behavior: "smooth",
+            });
+          }
         });
       });
     </script>
