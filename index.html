@@ -1,908 +1,923 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nexaweb.lab - Bikin Usaha Anda Terkenal Luas Secara Digital</title>
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet"
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
 
     <style>
-      /* =================================
-         Bagian CSS
-         ================================= */
-      :root {
-        /* Definisi Warna */
-        --color-primary: #0077b6; /* Biru Neon/Ocean */
-        --color-secondary: #00b4d8; /* Biru Muda */
-        --color-dark: #0a0a0a; /* Hitam Pekat */
-        --color-text: #e0e0e0; /* Teks Putih Keabu-abuan */
-        --color-accent: #90e0ef; /* Aksen Biru Sangat Muda */
-        --color-bg-start: #010410; /* Biru Sangat Gelap (Awal Gradasi) */
-        --header-height: 70px; /* Tinggi header */
-        --border-color: rgba(
-          0,
-          119,
-          182,
-          0.5
-        ); /* Warna bingkai (Biru Transparan) */
-        --header-bg: rgba(13, 22, 42, 0.9);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Poppins", sans-serif;
-        color: var(--color-text);
-        /* Gradasi Biru Gelap ke Hitam */
-        background: linear-gradient(
-          135deg,
-          var(--color-bg-start) 0%,
-          var(--color-dark) 80%
-        );
-        min-height: 100vh;
-        line-height: 1.6;
-        overflow-x: hidden;
-      }
-
-      /* ------------------
-         1. PRELOADER (LOADING SCREEN)
-         ------------------ */
-      #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--color-bg-start);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 1;
-        transition: opacity 0.5s ease;
-      }
-
-      .loader {
-        border: 5px solid rgba(255, 255, 255, 0.2);
-        border-top: 5px solid var(--color-secondary);
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 1.5s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+        /* =================================
+           Bagian CSS
+           ================================= */
+        :root {
+            /* Definisi Warna */
+            --color-primary: #0077b6; /* Biru Neon/Ocean */
+            --color-secondary: #00b4d8; /* Biru Muda */
+            --color-dark: #0a0a0a; /* Hitam Pekat */
+            --color-text: #e0e0e0; /* Teks Putih Keabu-abuan */
+            --color-accent: #90e0ef; /* Aksen Biru Sangat Muda */
+            --color-bg-start: #010410; /* Biru Sangat Gelap (Awal Gradasi) */
+            --header-height: 70px; /* Tinggi header */
+            --border-color: rgba(
+                0,
+                119,
+                182,
+                0.5
+            ); /* Warna bingkai (Biru Transparan) */
+            --header-bg: rgba(13, 22, 42, 0.9);
         }
-        100% {
-          transform: rotate(360deg);
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
 
-      /* ------------------
-         2. HEADER DESKTOP & STICKY EFFECT
-         ------------------ */
-      header {
-        width: 100%;
-        height: var(--header-height);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        background-color: var(--header-bg); /* Semi-transparent default */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        border-bottom: 2px solid var(--border-color);
-        transition: background-color 0.3s, box-shadow 0.3s;
-      }
+        body {
+            font-family: "Poppins", sans-serif;
+            color: var(--color-text);
+            /* Gradasi Biru Gelap ke Hitam */
+            background: linear-gradient(
+                135deg,
+                var(--color-bg-start) 0%,
+                var(--color-dark) 80%
+            );
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-      /* STICKY HEADER BG CHANGE */
-      .scrolled-header {
-        /* Mengubah header menjadi solid saat di-scroll untuk keterbacaan */
-        background-color: var(--color-dark);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-      }
-
-      .header-content {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 5%;
-      }
-
-      .logo {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: var(--color-primary);
-        text-decoration: none;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: font-size 0.3s; /* Untuk transisi responsif */
-      }
-
-      /* Hamburger button - Sembunyikan di Desktop */
-      .menu-toggle {
-        display: none;
-      }
-
-      /* Navigation Desktop */
-      nav ul {
-        list-style: none;
-        display: flex;
-      }
-
-      nav ul li {
-        margin-left: 35px;
-      }
-
-      nav ul li a {
-        color: var(--color-text);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        position: relative;
-        padding: 5px 0;
-        transition: color 0.3s;
-      }
-
-      nav ul li a:hover,
-      nav ul li a.active {
-        color: var(--color-secondary);
-      }
-
-      /* Efek Garis Bawah (Underline) Premium */
-      nav ul li a::after {
-        content: "";
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 3px;
-        background-color: var(--color-secondary);
-        transition: width 0.3s ease-in-out;
-        border-radius: 2px;
-      }
-
-      nav ul li a:hover::after,
-      nav ul li a.active::after {
-        width: 100%;
-      }
-
-      /* Menu Mobile (Default Tersembunyi di Desktop) */
-      .mobile-nav {
-        display: none;
-      }
-
-      /* ------------------
-         3. SEKSI UTAMA (HERO) & CTA HOVER GLOW
-         ------------------ */
-      .hero-section {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 0 5%;
-        position: relative;
-        padding-top: calc(var(--header-height) + 20px);
-      }
-
-      .hero-content {
-        max-width: 800px;
-        z-index: 2;
-      }
-
-      /* H1 - Judul Utama */
-      .hero-content h1 {
-        font-size: 4rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: #ffffff;
-        transition: font-size 0.3s;
-      }
-
-      /* H2 untuk Typing Effect */
-      .hero-content h2 {
-        font-size: 2.5rem;
-        font-weight: 600;
-        color: var(--color-secondary);
-        margin-bottom: 30px;
-        display: inline-block;
-        position: relative;
-        min-height: 40px;
-        transition: font-size 0.3s;
-      }
-
-      .hero-content p {
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-        color: var(--color-text);
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .cta-button {
-        display: inline-block;
-        padding: 14px 35px;
-        background: linear-gradient(
-          90deg,
-          var(--color-primary),
-          var(--color-secondary)
-        );
-        color: var(--color-dark);
-        text-decoration: none;
-        font-weight: 600;
-        border-radius: 50px;
-        /* Custom Hover/Glow transition */
-        transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
-        box-shadow: 0 5px 15px rgba(0, 119, 182, 0.4);
-        filter: drop-shadow(
-          0 0 5px rgba(0, 180, 216, 0)
-        ); /* Default: no glow */
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      /* CTA Hover Glow Effect */
-      .cta-button:hover {
-        transform: translateY(-5px) scale(1.02); /* Lebih agresif saat hover */
-        box-shadow: 0 10px 25px rgba(0, 119, 182, 0.7);
-        filter: drop-shadow(
-          0 0 15px var(--color-secondary)
-        ); /* Efek glow neon */
-      }
-
-      /* ------------------
-         4. DEKORATIF (SPHERE)
-         ------------------ */
-      .decorative-sphere {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.15;
-        filter: blur(50px);
-        background: var(--color-primary);
-        z-index: 1;
-        transition: transform 0.1s linear;
-      }
-
-      .sphere-1 {
-        width: 300px;
-        height: 300px;
-        top: 15%;
-        right: 10%;
-        background: var(--color-secondary);
-      }
-
-      .sphere-2 {
-        width: 150px;
-        height: 150px;
-        bottom: 5%;
-        left: 5%;
-        background: var(--color-accent);
-      }
-
-      /* ------------------
-         5. SCROLL REVEAL ANIMATION STYLES
-         ------------------ */
-      .reveal-item {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      }
-
-      .reveal-item.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* ------------------
-         6. SEKSI ABOUT (VISI & MISI) & FOOTER
-         ------------------ */
-      .section-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .about-section {
-        padding: 100px 5%;
-        background-color: rgba(0, 0, 0, 0.2);
-      }
-
-      .about-section h2 {
-        text-align: center;
-        margin-bottom: 40px;
-        font-size: 2.5rem;
-        color: var(--color-secondary);
-      }
-
-      .vision-mission-grid {
-        display: flex;
-        gap: 40px;
-        margin-top: 50px;
-      }
-
-      .vm-card {
-        flex: 1;
-        padding: 30px;
-        background-color: rgba(0, 119, 182, 0.1);
-        border-radius: 10px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s;
-      }
-
-      .vm-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 30px rgba(0, 180, 216, 0.4);
-      }
-
-      .vm-card h3 {
-        font-size: 1.8rem;
-        color: var(--color-primary);
-        margin-bottom: 15px;
-        border-bottom: 2px solid var(--color-secondary);
-        padding-bottom: 10px;
-      }
-
-      .vm-card ul {
-        list-style: none;
-      }
-
-      .vm-card li {
-        margin-bottom: 10px;
-        padding-left: 15px;
-        position: relative;
-      }
-
-      .vm-card li::before {
-        content: "•";
-        color: var(--color-secondary);
-        font-weight: bold;
-        display: inline-block;
-        width: 1em;
-        margin-left: -1em;
-      }
-
-      /* FOOTER */
-      footer {
-        width: 100%;
-        background-color: var(--color-dark);
-        padding: 30px 5%;
-        text-align: center;
-        border-top: 2px solid var(--border-color);
-        margin-top: 50px;
-        position: relative;
-        z-index: 10;
-      }
-
-      /* Desktop Footer - Social Links */
-      .social-links {
-        margin-bottom: 15px;
-      }
-
-      .social-links a {
-        color: var(--color-accent);
-        text-decoration: none;
-        font-size: 1.2rem;
-        margin: 0 15px;
-        transition: color 0.3s;
-      }
-
-      .social-links a:hover {
-        color: var(--color-primary);
-      }
-
-      .social-links i {
-        margin-right: 8px;
-      }
-
-      .copyright {
-        font-size: 0.9rem;
-        color: var(--color-text);
-      }
-
-      /* =================================
-         BAGIAN CSS MOBILE RESPONSIVE
-         (Hanya berlaku untuk layar kecil)
-         ================================= */
-      @media (max-width: 768px) {
         /* ------------------
-             1. PENYESUAIAN HEADER MOBILE
-             ------------------ */
+           1. PRELOADER (LOADING SCREEN)
+           ------------------ */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg-start);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top: 5px solid var(--color-secondary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ------------------
+           2. HEADER DESKTOP & STICKY EFFECT (Bingkai Dihilangkan)
+           ------------------ */
+        header {
+            width: 100%;
+            height: var(--header-height);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: var(--header-bg); /* Semi-transparent default */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid var(--border-color); /* Bingkai bawah tipis */
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* STICKY HEADER BG CHANGE */
+        .scrolled-header {
+            background-color: var(--color-dark);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+        }
+
         .header-content {
-          padding: 0 20px;
-          /* Mengubah tata letak agar Logo di Kiri dan Tombol di Kanan */
-          justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
         }
 
-        /* Logo Diperkecil (sesuai permintaan) */
         .logo {
-          font-size: 1.5rem; /* Lebih kecil */
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: font-size 0.3s;
         }
 
-        /* Menyembunyikan Menu Asli (untuk diganti hamburger) */
-        nav {
-          display: none;
-        }
-
-        /* Tombol Hamburger */
+        /* Hamburger button - Sembunyikan di Desktop */
         .menu-toggle {
-          display: block; /* Tampilkan tombol hamburger */
-          font-size: 1.5rem;
-          color: var(--color-secondary);
-          cursor: pointer;
-          z-index: 1001;
+            display: none;
         }
 
-        /* Gaya Menu Dropdown Mobile */
+        /* Navigation Desktop */
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 35px;
+        }
+
+        nav ul li a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--color-secondary);
+        }
+
+        /* Efek Garis Bawah (Underline) Premium */
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--color-secondary);
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Menu Mobile (Default Tersembunyi di Desktop) */
         .mobile-nav {
-          display: none; /* Default tersembunyi */
-          position: absolute;
-          top: var(--header-height);
-          right: 0;
-          width: 70%;
-          background-color: var(--color-dark); /* Latar belakang menu */
-          border-left: 1px solid var(--border-color);
-          box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.7);
-          padding: 20px 0;
-          z-index: 999;
-          transform: translateX(100%); /* Sembunyikan ke kanan */
-          transition: transform 0.4s ease-out;
-        }
-
-        .mobile-nav.open {
-          display: block;
-          transform: translateX(0); /* Tampilkan saat aktif */
-        }
-
-        .mobile-nav ul {
-          flex-direction: column;
-          align-items: flex-start;
-          list-style: none;
-          padding: 0 20px;
-        }
-
-        .mobile-nav ul li {
-          margin: 15px 0;
-          width: 100%;
-        }
-
-        .mobile-nav ul li a {
-          display: block;
-          padding: 10px 0;
-          font-size: 1.1rem;
-          font-weight: 500;
-          color: var(--color-text);
-          text-decoration: none;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
         }
 
         /* ------------------
-             2. PENYESUAIAN BODY DAN FOOTER MOBILE
-             ------------------ */
-        .hero-content h1 {
-          font-size: 2.5rem;
+           3. SEKSI UTAMA (HERO) & CTA HOVER GLOW
+           ------------------ */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            padding-top: calc(var(--header-height) + 20px);
         }
 
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        /* H1 - Judul Utama */
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+            transition: font-size 0.3s;
+        }
+
+        /* H2 untuk Typing Effect */
         .hero-content h2 {
-          font-size: 1.8rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-secondary);
+            margin-bottom: 30px;
+            display: inline-block;
+            position: relative;
+            min-height: 40px;
+            transition: font-size 0.3s;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: var(--color-text);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(
+                90deg,
+                var(--color-primary),
+                var(--color-secondary)
+            );
+            color: var(--color-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            /* Custom Hover/Glow transition */
+            transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 119, 182, 0.4);
+            filter: drop-shadow(
+                0 0 5px rgba(0, 180, 216, 0)
+            ); /* Default: no glow */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* CTA Hover Glow Effect */
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.02); /* Lebih agresif saat hover */
+            box-shadow: 0 10px 25px rgba(0, 119, 182, 0.7);
+            filter: drop-shadow(
+                0 0 15px var(--color-secondary)
+            ); /* Efek glow neon */
+        }
+
+        /* ------------------
+           4. DEKORATIF (SPHERE)
+           ------------------ */
+        .decorative-sphere {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(50px);
+            background: var(--color-primary);
+            z-index: 1;
+            transition: transform 0.1s linear;
+        }
+
+        .sphere-1 {
+            width: 300px;
+            height: 300px;
+            top: 15%;
+            right: 10%;
+            background: var(--color-secondary);
+        }
+
+        .sphere-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 5%;
+            left: 5%;
+            background: var(--color-accent);
+        }
+
+        /* ------------------
+           5. SCROLL REVEAL ANIMATION STYLES
+           ------------------ */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ------------------
+           6. SEKSI ABOUT (VISI & MISI) & FOOTER
+           ------------------ */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .about-section {
+            padding: 100px 5%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .about-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: var(--color-secondary);
         }
 
         .vision-mission-grid {
-          flex-direction: column;
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
         }
 
         .vm-card {
-          flex: unset; /* Hilangkan flex */
+            flex: 1;
+            padding: 30px;
+            background-color: rgba(0, 119, 182, 0.1);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
         }
 
-        /* Footer Horizontal Responsif */
+        .vm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 180, 216, 0.4);
+        }
+
+        .vm-card h3 {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 10px;
+        }
+
+        .vm-card ul {
+            list-style: none;
+        }
+
+        .vm-card li {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .vm-card li::before {
+            content: "•";
+            color: var(--color-secondary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* FOOTER */
+        footer {
+            width: 100%;
+            background-color: var(--color-dark);
+            padding: 30px 5%;
+            text-align: center;
+            border-top: 2px solid var(--border-color);
+            margin-top: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Desktop Footer - Social Links */
         .social-links {
-          display: flex; /* Aktifkan Flexbox */
-          flex-direction: row; /* Jadikan horizontal */
-          justify-content: space-around; /* Jarak merata */
-          flex-wrap: wrap; /* Jika terlalu banyak, bungkus ke bawah */
-          margin-bottom: 20px;
+            margin-bottom: 15px;
+            display: flex; /* Jadikan default desktop juga horizontal */
+            justify-content: center;
         }
 
         .social-links a {
-          /* Posisikan teks dan ikon di atas satu sama lain di mobile */
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
 
-          margin: 10px 5px; /* Kurangi margin horizontal, tambahkan vertikal */
-          font-size: 0.9rem; /* Sedikit diperkecil */
+        .social-links a:hover {
+            color: var(--color-primary);
         }
 
         .social-links i {
-          margin-bottom: 5px; /* Pindah ikon ke atas teks */
-          margin-right: 0; /* Hilangkan margin kanan */
-          font-size: 1.2rem;
+            margin-right: 8px;
         }
-      }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+
+        /* =================================
+           BAGIAN CSS MOBILE RESPONSIVE
+           (Hanya berlaku untuk layar kecil)
+           ================================= */
+        @media (max-width: 768px) {
+            /* ------------------
+                1. PENYESUAIAN HEADER MOBILE
+                ------------------ */
+            .header-content {
+                padding: 0 20px;
+                justify-content: space-between;
+            }
+
+            /* Logo Diperkecil */
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            /* Menyembunyikan Menu Asli */
+            nav {
+                display: none;
+            }
+
+            /* Tombol Hamburger */
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                color: var(--color-secondary);
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            /* Gaya Menu Dropdown Mobile */
+            .mobile-nav {
+                display: none;
+                position: absolute;
+                top: var(--header-height);
+                right: 0;
+                width: 70%;
+                background-color: var(--color-dark);
+                border-left: 1px solid var(--border-color);
+                box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.7);
+                padding: 20px 0;
+                z-index: 999;
+                transform: translateX(100%);
+                transition: transform 0.4s ease-out;
+            }
+
+            .mobile-nav.open {
+                display: block;
+                transform: translateX(0);
+            }
+
+            .mobile-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                list-style: none;
+                padding: 0 20px;
+            }
+
+            .mobile-nav ul li {
+                margin: 15px 0;
+                width: 100%;
+            }
+
+            .mobile-nav ul li a {
+                display: block;
+                padding: 10px 0;
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: var(--color-text);
+                text-decoration: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            /* ------------------
+                2. PENYESUAIAN BODY DAN FOOTER MOBILE
+                ------------------ */
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .vision-mission-grid {
+                flex-direction: column;
+            }
+
+            .vm-card {
+                flex: unset;
+            }
+
+            /* >>>>> PERBAIKAN FINAL FOOTER HORIZONTAL <<<<< */
+            .social-links {
+                display: flex; 
+                flex-direction: row; /* TETAP HORIZONTAL */
+                justify-content: center; /* Rata tengah */
+                flex-wrap: wrap; 
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+
+            .social-links a {
+                /* Hapus flex-direction: column */
+                display: flex;
+                align-items: center; 
+                margin: 10px 15px; 
+                
+                /* Sembunyikan Teks Panjang, hanya tampilkan Ikon */
+                font-size: 0; 
+                color: transparent; 
+                
+                /* Tambahkan padding agar area klik ikon lebih besar */
+                padding: 5px; 
+            }
+
+            .social-links i {
+                /* Tampilkan kembali Ikon */
+                margin-bottom: 0; 
+                margin-right: 0; 
+                font-size: 1.8rem; 
+                color: var(--color-accent); /* Warna Ikon */
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="preloader">
-      <div class="loader"></div>
+        <div class="loader"></div>
     </div>
 
     <header id="main-header">
-      <div class="header-content">
-        <a href="#home" class="logo"> Nexaweb.lab </a>
+        <div class="header-content">
+            <a href="#home" class="logo"> Nexaweb.lab </a>
 
-        <nav>
-          <ul>
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
 
-        <div class="menu-toggle">
-          <i class="fas fa-bars"></i>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
-      </div>
 
-      <div class="mobile-nav">
-        <ul>
-          <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
+        <div class="mobile-nav">
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
     </header>
 
     <section id="home" class="hero-section">
-      <div
-        class="decorative-sphere sphere-1"
-        style="top: 15%; right: 10%"
-      ></div>
-      <div
-        class="decorative-sphere sphere-2"
-        style="bottom: 5%; left: 5%"
-      ></div>
+        <div
+            class="decorative-sphere sphere-1"
+            style="top: 15%; right: 10%"
+        ></div>
+        <div
+            class="decorative-sphere sphere-2"
+            style="bottom: 5%; left: 5%"
+        ></div>
 
-      <div class="hero-content">
-        <p class="reveal-item">Hello, We are Nexaweb.lab 👋</p>
+        <div class="hero-content">
+            <p class="reveal-item">Hello, We are Nexaweb.lab 👋</p>
 
-        <h1>Bikin Usaha Anda Terkenal Luas</h1>
-        <h2 id="typing-text" class="reveal-item"></h2>
+            <h1>Bikin Usaha Anda Terkenal Luas</h1>
+            <h2 id="typing-text" class="reveal-item"></h2>
 
-        <p class="reveal-item" style="transition-delay: 0.1s">
-          Nexaweb.lab adalah **Digital Growth Partner** yang fokus membangun
-          *website* yang efektif dan berkelas untuk Usaha Mikro, Kecil, dan
-          Menengah (UMKM), membantu mereka siap bersaing di era digital.
-        </p>
-        <a
-          href="https://wa.me/6289517587498"
-          class="cta-button reveal-item"
-          target="_blank"
-          style="transition-delay: 0.2s"
-          >Mulai Proyek Sekarang</a
-        >
-      </div>
+            <p class="reveal-item" style="transition-delay: 0.1s">
+                Nexaweb.lab adalah **Digital Growth Partner** yang fokus membangun
+                *website* yang efektif dan berkelas untuk Usaha Mikro, Kecil, dan
+                Menengah (UMKM), membantu mereka siap bersaing di era digital.
+            </p>
+            <a
+                href="https://wa.me/6289517587498"
+                class="cta-button reveal-item"
+                target="_blank"
+                style="transition-delay: 0.2s"
+                >Mulai Proyek Sekarang</a
+            >
+        </div>
     </section>
 
     <section id="about" class="about-section">
-      <div class="section-container">
-        <h2 class="reveal-item">Tentang Kami: Nexaweb.lab</h2>
-        <p
-          class="reveal-item"
-          style="text-align: center; max-width: 900px; margin: 0 auto 50px"
-        >
-          Nexaweb.lab adalah agensi yang berkomitmen untuk memberdayakan UMKM
-          melalui solusi digital berkualitas tinggi. Kami adalah mitra yang Anda
-          butuhkan untuk melangkah ke pasar online.
-        </p>
-
-        <div class="vision-mission-grid">
-          <div class="vm-card reveal-item">
-            <h3>Visi Kami</h3>
+        <div class="section-container">
+            <h2 class="reveal-item">Tentang Kami: Nexaweb.lab</h2>
             <p
-              style="
-                color: var(--color-secondary);
-                font-weight: 600;
-                margin-bottom: 20px;
-              "
+                class="reveal-item"
+                style="text-align: center; max-width: 900px; margin: 0 auto 50px"
             >
-              Menjadi agensi pengembang *website* terdepan yang mendorong 1000+
-              UMKM di Indonesia untuk mencapai pertumbuhan digital yang
-              berkelanjutan.
+                Nexaweb.lab adalah agensi yang berkomitmen untuk memberdayakan UMKM
+                melalui solusi digital berkualitas tinggi. Kami adalah mitra yang Anda
+                butuhkan untuk melangkah ke pasar online.
             </p>
-          </div>
 
-          <div class="vm-card reveal-item" style="transition-delay: 0.15s">
-            <h3>Misi Kami</h3>
-            <ul>
-              <li>
-                Menyediakan desain *website* yang profesional, responsif, dan
-                mudah digunakan (User-Friendly).
-              </li>
-              <li>
-                Mengedukasi UMKM tentang pentingnya kehadiran online dan
-                pemasaran digital.
-              </li>
-              <li>
-                Menciptakan solusi *website* yang terjangkau namun memiliki
-                kualitas premium.
-              </li>
-              <li>
-                Memberikan dukungan teknis yang cepat dan efisien kepada setiap
-                mitra UMKM kami.
-              </li>
-            </ul>
-          </div>
+            <div class="vision-mission-grid">
+                <div class="vm-card reveal-item">
+                    <h3>Visi Kami</h3>
+                    <p
+                        style="
+                            color: var(--color-secondary);
+                            font-weight: 600;
+                            margin-bottom: 20px;
+                        "
+                    >
+                        Menjadi agensi pengembang *website* terdepan yang mendorong 1000+
+                        UMKM di Indonesia untuk mencapai pertumbuhan digital yang
+                        berkelanjutan.
+                    </p>
+                </div>
+
+                <div class="vm-card reveal-item" style="transition-delay: 0.15s">
+                    <h3>Misi Kami</h3>
+                    <ul>
+                        <li>
+                            Menyediakan desain *website* yang profesional, responsif, dan
+                            mudah digunakan (User-Friendly).
+                        </li>
+                        <li>
+                            Mengedukasi UMKM tentang pentingnya kehadiran online dan
+                            pemasaran digital.
+                        </li>
+                        <li>
+                            Menciptakan solusi *website* yang terjangkau namun memiliki
+                            kualitas premium.
+                        </li>
+                        <li>
+                            Memberikan dukungan teknis yang cepat dan efisien kepada setiap
+                            mitra UMKM kami.
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
     <section id="contact" style="min-height: 50vh; padding: 100px 5%">
-      <h2
-        class="reveal-item"
-        style="text-align: center; margin-bottom: 30px; font-size: 2rem"
-      >
-        Hubungi Kami
-      </h2>
-      <p
-        class="reveal-item"
-        style="max-width: 800px; margin: 0 auto; text-align: center"
-      >
-        Mari berdiskusi tentang ide bisnis Anda dan bagaimana *website* yang
-        efektif dapat melipatgandakan peluang Anda. Hubungi kami melalui tombol
-        di bawah atau tautan di *footer*!
-      </p>
-      <div
-        class="reveal-item"
-        style="text-align: center; margin-top: 30px; transition-delay: 0.1s"
-      >
-        <a href="https://wa.me/6289517587498" class="cta-button" target="_blank"
-          >Chat Via WhatsApp</a
+        <h2
+            class="reveal-item"
+            style="text-align: center; margin-bottom: 30px; font-size: 2rem"
         >
-      </div>
+            Hubungi Kami
+        </h2>
+        <p
+            class="reveal-item"
+            style="max-width: 800px; margin: 0 auto; text-align: center"
+        >
+            Mari berdiskusi tentang ide bisnis Anda dan bagaimana *website* yang
+            efektif dapat melipatgandakan peluang Anda. Hubungi kami melalui tombol
+            di bawah atau tautan di *footer*!
+        </p>
+        <div
+            class="reveal-item"
+            style="text-align: center; margin-top: 30px; transition-delay: 0.1s"
+        >
+            <a href="https://wa.me/6289517587498" class="cta-button" target="_blank"
+                >Chat Via WhatsApp</a
+            >
+        </div>
     </section>
 
     <footer>
-      <div class="social-links">
-        <a
-          href="https://wa.me/6289517587498"
-          target="_blank"
-          aria-label="WhatsApp Nexaweb.lab"
-        >
-          <i class="fab fa-whatsapp"></i> WhatsApp: 0895-1758-7498
-        </a>
-        <a
-          href="https://www.instagram.com/nexaweb.lab?igsh=MXZqM2Zqd3pwZHA5bQ=="
-          target="_blank"
-          aria-label="Instagram Nexaweb.lab"
-        >
-          <i class="fab fa-instagram"></i> @Nexaweb.lab
-        </a>
-      </div>
-      <p class="copyright">
-        &copy; 2025 Nexaweb.lab - Digital Growth Partner for UMKM
-      </p>
+        <div class="social-links">
+            <a
+                href="https://wa.me/6289517587498"
+                target="_blank"
+                aria-label="WhatsApp Nexaweb.lab"
+            >
+                <i class="fab fa-whatsapp"></i> WhatsApp: 0895-1758-7498
+            </a>
+            <a
+                href="https://www.instagram.com/nexaweb.lab?igsh=MXZqM2Zqd3pwZHA5bQ=="
+                target="_blank"
+                aria-label="Instagram Nexaweb.lab"
+            >
+                <i class="fab fa-instagram"></i> @Nexaweb.lab
+            </a>
+        </div>
+        <p class="copyright">
+            &copy; 2025 Nexaweb.lab - Digital Growth Partner for UMKM
+        </p>
     </footer>
 
     <script>
-      const header = document.getElementById("main-header");
-      const sphere1 = document.querySelector(".sphere-1");
-      const sphere2 = document.querySelector(".sphere-2");
-      const sections = document.querySelectorAll("section");
-      const navLinks = document.querySelectorAll("nav a");
+        const header = document.getElementById("main-header");
+        const sphere1 = document.querySelector(".sphere-1");
+        const sphere2 = document.querySelector(".sphere-2");
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("nav a");
 
-      const menuToggle = document.querySelector(".menu-toggle");
-      const mobileNav = document.querySelector(".mobile-nav");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const mobileNav = document.querySelector(".mobile-nav");
 
-      // --- 1. PRELOADER & Typing Effect Initialization ---
-      window.addEventListener("load", () => {
-        // Sembunyikan preloader setelah halaman selesai dimuat
-        const preloader = document.getElementById("preloader");
-        if (preloader) {
-          preloader.style.opacity = "0";
-          setTimeout(() => {
-            preloader.style.display = "none";
-          }, 500);
-        }
-
-        // Mulai animasi typing dan scroll reveal
-        if (document.getElementById("typing-text")) {
-          setTimeout(startTypingEffect, 500);
-        }
-        setupScrollReveal();
-      });
-
-      // --- 2. TYPING EFFECT LOGIC ---
-      const textElement = document.getElementById("typing-text");
-      const words = [
-        "Secara Digital",
-        "Spesialis Website UMKM",
-        "Digital Growth Partner",
-      ];
-      let wordIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      const typingSpeed = 100;
-      const deletingSpeed = 50;
-      const delayBeforeDelete = 1500;
-
-      function startTypingEffect() {
-        if (!textElement) return;
-
-        const currentWord = words[wordIndex];
-
-        if (isDeleting) {
-          if (charIndex > 0) {
-            textElement.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-            setTimeout(startTypingEffect, deletingSpeed);
-          } else {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            setTimeout(startTypingEffect, typingSpeed);
-          }
-        } else {
-          if (charIndex < currentWord.length) {
-            textElement.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-            setTimeout(startTypingEffect, typingSpeed);
-          } else {
-            isDeleting = true;
-            setTimeout(startTypingEffect, delayBeforeDelete);
-          }
-        }
-      }
-
-      // --- 3. SCROLL REVEAL LOGIC ---
-      function setupScrollReveal() {
-        const revealItems = document.querySelectorAll(".reveal-item");
-
-        // Cek dukungan Intersection Observer (fallback tidak dibuat karena browser modern sudah mendukung)
-        if ("IntersectionObserver" in window) {
-          const observer = new IntersectionObserver(
-            (entries, observer) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add("visible");
-                  observer.unobserve(entry.target);
-                }
-              });
-            },
-            {
-              rootMargin: "0px",
-              threshold: 0.1,
+        // --- 1. PRELOADER & Typing Effect Initialization ---
+        window.addEventListener("load", () => {
+            // Sembunyikan preloader setelah halaman selesai dimuat
+            const preloader = document.getElementById("preloader");
+            if (preloader) {
+                preloader.style.opacity = "0";
+                setTimeout(() => {
+                    preloader.style.display = "none";
+                }, 500);
             }
-          );
 
-          revealItems.forEach((item) => {
-            observer.observe(item);
-          });
-        } else {
-          // Fallback: Tampilkan semua elemen jika IntersectionObserver tidak didukung
-          revealItems.forEach((item) => (item.style.opacity = 1));
-        }
-      }
-
-      // --- 4. PARALLAX EFFECT, SCROLL LOGIC & STICKY HEADER ---
-
-      // LOGIC STICKY HEADER
-      function handleStickyHeader() {
-        if (window.scrollY > 50) {
-          header.classList.add("scrolled-header");
-        } else {
-          header.classList.remove("scrolled-header");
-        }
-      }
-
-      // Fungsi untuk Parallax, Active Link, dan Sticky Header
-      const handleScroll = () => {
-        const scrollPosition = window.scrollY;
-
-        // Parallax Logic
-        if (sphere1) {
-          sphere1.style.transform = `translateY(${scrollPosition * -0.1}px)`;
-        }
-        if (sphere2) {
-          sphere2.style.transform = `translateY(${scrollPosition * 0.15}px)`;
-        }
-
-        handleStickyHeader();
-
-        // Logic Active Link (Hanya untuk Desktop Nav)
-        let current = "";
-        const scrollY = window.scrollY + header.offsetHeight + 1;
-
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-
-          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-            current = section.getAttribute("id");
-          }
+            // Mulai animasi typing dan scroll reveal
+            if (document.getElementById("typing-text")) {
+                setTimeout(startTypingEffect, 500);
+            }
+            setupScrollReveal();
         });
 
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href").substring(1) === current) {
-            link.classList.add("active");
-          }
-        });
-      };
+        // --- 2. TYPING EFFECT LOGIC ---
+        const textElement = document.getElementById("typing-text");
+        const words = [
+            "Secara Digital",
+            "Spesialis Website UMKM",
+            "Digital Growth Partner",
+        ];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 100;
+        const deletingSpeed = 50;
+        const delayBeforeDelete = 1500;
 
-      // Pasang event listener
-      window.addEventListener("scroll", handleScroll);
+        function startTypingEffect() {
+            if (!textElement) return;
 
-      // Jalankan sekali saat load
-      handleScroll();
+            const currentWord = words[wordIndex];
 
-      // --- 5. Smooth Scroll Logic ---
-      document.querySelectorAll("a[href^='#']").forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          // Hanya proses link internal
-          if (this.getAttribute("href").length > 1) {
-            e.preventDefault();
+            if (isDeleting) {
+                if (charIndex > 0) {
+                    textElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(startTypingEffect, deletingSpeed);
+                } else {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    setTimeout(startTypingEffect, typingSpeed);
+                }
+            } else {
+                if (charIndex < currentWord.length) {
+                    textElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                    setTimeout(startTypingEffect, typingSpeed);
+                } else {
+                    isDeleting = true;
+                    setTimeout(startTypingEffect, delayBeforeDelete);
+                }
+            }
+        }
 
-            const targetId = this.getAttribute("href").substring(1);
-            const targetElement = document.getElementById(targetId);
+        // --- 3. SCROLL REVEAL LOGIC ---
+        function setupScrollReveal() {
+            const revealItems = document.querySelectorAll(".reveal-item");
+
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver(
+                    (entries, observer) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("visible");
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    {
+                        rootMargin: "0px",
+                        threshold: 0.1,
+                    }
+                );
+
+                revealItems.forEach((item) => {
+                    observer.observe(item);
+                });
+            } else {
+                // Fallback: Tampilkan semua elemen
+                revealItems.forEach((item) => (item.style.opacity = 1));
+            }
+        }
+
+        // --- 4. PARALLAX EFFECT, SCROLL LOGIC & STICKY HEADER ---
+
+        // Fungsi untuk Parallax, Active Link, dan Sticky Header
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+
+            // Parallax Logic
+            if (sphere1) {
+                sphere1.style.transform = `translateY(${scrollPosition * -0.1}px)`;
+            }
+            if (sphere2) {
+                sphere2.style.transform = `translateY(${scrollPosition * 0.15}px)`;
+            }
+
+            // Sticky Header Logic
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled-header");
+            } else {
+                header.classList.remove("scrolled-header");
+            }
+
+            // Logic Active Link (Desktop Nav)
+            let current = "";
+            const scrollY = window.scrollY + header.offsetHeight + 1;
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute("id");
+                }
+            });
 
             // Update active state di Desktop Nav
-            document.querySelectorAll("nav a").forEach((link) => {
-              link.classList.remove("active");
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").substring(1) === current) {
+                    link.classList.add("active");
+                }
             });
-            // Update active state di Mobile Nav
-            document.querySelectorAll(".mobile-nav a").forEach((link) => {
-              link.classList.remove("active");
+             // Update active state di Mobile Nav
+             document.querySelectorAll(".mobile-nav a").forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").substring(1) === current) {
+                    link.classList.add("active");
+                }
+            });
+        };
+
+        // Pasang event listener
+        window.addEventListener("scroll", handleScroll);
+
+        // Jalankan sekali saat load
+        handleScroll();
+
+        // --- 5. Smooth Scroll Logic ---
+        document.querySelectorAll("a[href^='#']").forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+                // Hanya proses link internal
+                if (this.getAttribute("href").length > 1) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute("href").substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    // Tutup menu mobile saat link diklik
+                    if (mobileNav && mobileNav.classList.contains("open")) {
+                         mobileNav.classList.remove("open");
+                    }
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - header.offsetHeight,
+                            behavior: "smooth",
+                        });
+                    }
+                }
+            });
+        });
+
+        // --- 6. LOGIC HAMBURGER MENU ---
+        if (menuToggle && mobileNav) {
+            // Fungsi untuk mengaktifkan/menonaktifkan menu mobile
+            menuToggle.addEventListener("click", () => {
+                mobileNav.classList.toggle("open");
+                // Ganti ikon burger menjadi X saat terbuka
+                const icon = menuToggle.querySelector('i');
+                if (mobileNav.classList.contains('open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             });
 
-            this.classList.add("active");
-
-            if (targetElement) {
-              window.scrollTo({
-                top: targetElement.offsetTop - header.offsetHeight,
-                behavior: "smooth",
-              });
-            }
-          }
-        });
-      });
-
-      // --- 6. LOGIC HAMBURGER MENU ---
-      if (menuToggle && mobileNav) {
-        // Fungsi untuk mengaktifkan/menonaktifkan menu mobile
-        menuToggle.addEventListener("click", () => {
-          mobileNav.classList.toggle("open");
-        });
-
-        // Menutup menu saat link di klik (untuk navigasi)
-        mobileNav.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => {
-            mobileNav.classList.remove("open");
-          });
-        });
-      }
+            // Menutup menu saat link di klik (untuk navigasi)
+            mobileNav.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", () => {
+                    mobileNav.classList.remove("open");
+                     const icon = menuToggle.querySelector('i');
+                     icon.classList.remove('fa-times');
+                     icon.classList.add('fa-bars');
+                });
+            });
+        }
     </script>
-  </body>
+</body>
 </html>
